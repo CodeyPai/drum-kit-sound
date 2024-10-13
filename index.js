@@ -118,26 +118,22 @@
 // });
 
 
-// Select all drum buttons
 var drumButtons = document.querySelectorAll(".drum");
-
 
 // Add event listeners for button clicks
 for (var i = 0; i < drumButtons.length; i++) {
     drumButtons[i].addEventListener("click", function () {
-        
         var buttonClickInnerHtml = this.innerHTML;
         playSound(buttonClickInnerHtml); // Call playSound function with the button's inner HTML
-        buttonAnimate(buttonClickInnerHtml);
+        buttonAnimate(buttonClickInnerHtml); // Call the buttonAnimate function
     });
 }
 
 // Add event listener for key presses
 document.addEventListener("keydown", function(event) {
     playSound(event.key); // Call playSound function with the key pressed
-    buttonAnimate(event.key);
+    buttonAnimate(event.key); // Call the buttonAnimate function
 });
-
 
 // Function to play the sound based on the key/button pressed
 function playSound(key) {
@@ -171,19 +167,23 @@ function playSound(key) {
             soundSnare.play();
             break;
         default:
-            alert("You pressed the wrong key!")
+            document.body.classList.add("game-over");
+            setTimeout(function() {
+                document.body.classList.remove("game-over");
+            }, 200);
     }
 }
 
+// Function to animate the button and change the text color
 function buttonAnimate(currentKey) {
     var activeButton = document.querySelector("." + currentKey); // Select the button based on the class
     if (activeButton) {  // Ensure the element exists
         activeButton.classList.add("pressed"); // Add the "pressed" class
 
-        // Remove the "pressed" class after a short delay (e.g., 100ms)
-        setTimeout(function(){
+        // Remove the "pressed" class after a short delay
+        setTimeout(function() {
             activeButton.classList.remove("pressed");
-        }, 100)
+        
+        }, 100);
     }
 }
-
